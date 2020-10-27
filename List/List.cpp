@@ -7,12 +7,17 @@ using namespace std;
 
 int main()
 {
-    int a[9] = { 9,8,7,5,6,4,3,2,1 };
+    int a[9] = { 3,25,7,5,10,4,3,2,1 };
     List list(a, 9);
-    int flag =list.EmptyList();
+    int b[6] = { 6,3,8,2,5,7 };
+    List list1(b, 6);
+    List list3;
+    //list3.Union(list, list1);
+    list3.Intersection(list, list1);
+    //int flag =list.EmptyList();
     //cout << flag << endl;
-    int e;
-    flag=list.GetElem(2,e);
+    //int e;
+    //flag=list.GetElem(2,e);
     //if (flag != 0)cout << e << endl;
     //list.InsertList(1, 7);
     //list.InsertList(8,0);
@@ -23,11 +28,12 @@ int main()
     //list.Split(list2);
     //list2.DispList();
     //list.DispList();
-    int max;
-    list.DelMax(max);
-    list.Sort();
+    //int max;
+    //list.DelMax(max);
+    //list.Sort();
     list.DispList();
-
+    list1.DispList();
+    list3.DispList();
     return 0;
 }
 

@@ -36,10 +36,24 @@ public:
 		}
 		r->next = NULL;
 	}*/
-	//TODO复制构造函数，先搁着
-	/*List(const List &L) {
 
-	}*/
+	List(List &L) {
+		head = (Node*)malloc(sizeof(Node));
+		head->next = NULL;
+		Node* s,*p;
+		int n = L.LengthList();
+		int e;
+		for (int i = 0; i < n; i++)
+		{
+			L.GetElem(i + 1, e);
+			s = (Node*)malloc(sizeof(Node));
+			s->data = e;
+			s->next = head->next;
+			head->next = s;
+		}
+	}
+
+
 	~List() {
 		Node* p,*q;
 		p = head;
@@ -221,6 +235,97 @@ public:
 				}
 			}
 		}
-	 }
+	}
+
+	void Union(List A, List B) {//并集
+		int e, n; n = A.LengthList();
+		Node* s;
+		for (int i = 0; i < n; i++)
+		{
+			A.GetElem(i + 1, e);
+			s = (Node*)malloc(sizeof(Node));
+			s->data = e;
+			Node* p; p = head;
+			while (p!=NULL)
+			{
+				if (p->next == NULL||s->data<p->next->data)
+				{
+					s->next = p->next;
+					p->next = s;
+					break;
+				}
+				if (s->data == p->next->data)
+				{
+					free(s);
+					break;
+				}
+				p = p->next;
+			}
+		}
+		n = B.LengthList();
+		for (int i = 0; i < n; i++)
+		{
+			B.GetElem(i + 1, e);
+			s = (Node*)malloc(sizeof(Node));
+			s->data = e;
+			Node* p; p = head;
+			while (p != NULL)
+			{
+				if (p->next == NULL || s->data < p->next->data)
+				{
+					s->next = p->next;
+					p->next = s;
+					break;
+				}
+				if (s->data==p->next->data)
+				{
+					free(s);
+					break;
+				}
+				p = p->next;
+			}
+		}
+	}
+
+	void Intersection(List A, List B) {//交集
+		int n = A.LengthList();
+		int m = B.LengthList();
+		int e,h;
+		for (int i = 0; i < n; i++)
+		{
+			A.GetElem(i + 1, e);
+			for (int j = 0; j < m; j++)
+			{
+				B.GetElem(j + 1, h);
+				if (e==h)
+				{
+					Node* s,*p;
+					s = (Node*)malloc(sizeof(Node));
+					s->data = e;
+					p = head;
+					while (p!=NULL)
+					{
+						if (p->next==NULL||s->data<p->next->data)
+						{
+							s->next = p->next;
+							p->next = s;
+							break;
+						}
+						if (s->data==p->next->data)
+						{
+							free(s);
+							break;
+						}
+						p = p->next;
+					}
+				}
+
+			}
+		}
+	}
+
+	/*void Complementary(List A, List B) {//差集
+
+	}*/
 };
 
