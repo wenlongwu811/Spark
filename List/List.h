@@ -10,7 +10,7 @@ public:
 		head->next = NULL;
 	}
 
-	List(int a[], int n) {//头插法
+	/*List(int a[], int n) {//头插法
 		head = (Node*)malloc(sizeof(Node));
 		head->next = NULL;
 		Node* s;
@@ -21,8 +21,9 @@ public:
 			s->next = head->next;
 			head->next = s;
 		}
-	}
-	/*List(int a[], int n) {//尾插法
+	}*/
+
+	List(int a[], int n) {//尾插法，保证次序
 		head = (Node*)malloc(sizeof(Node));
 		head->next = NULL;
 		Node* s, * r;
@@ -35,12 +36,12 @@ public:
 			r = s;
 		}
 		r->next = NULL;
-	}*/
+	}
 
 	List(List &L) {
 		head = (Node*)malloc(sizeof(Node));
 		head->next = NULL;
-		Node* s;
+		Node* s, * r; r = head;
 		int n = L.LengthList();
 		int e;
 		for (int i = 0; i < n; i++)
@@ -48,8 +49,9 @@ public:
 			L.GetElem(i + 1, e);
 			s = (Node*)malloc(sizeof(Node));
 			s->data = e;
-			s->next = head->next;
-			head->next = s;
+			s->next = r->next;
+			r->next = s;
+			r = s;
 		}
 	}
 
@@ -359,6 +361,75 @@ public:
 			}
 		}
 
+	}
+
+	/// <summary>
+/// 二路归并
+/// </summary>
+/// <param name="A"></param>
+/// <param name="B"></param>
+	void UnionList(List A, List B) {
+		Node* p, * r; r = head;
+		int m = A.LengthList();
+		int n = B.LengthList();
+		int e, h;
+		int i = 1;
+		for (i; i <= m&&i<=n; i++)
+		{
+			A.GetElem(i, e);
+			B.GetElem(i, h);
+			p = (Node*)malloc(sizeof(Node));
+			p->data = e + h;
+			p->next = r->next;
+			r->next = p;
+			r = p;
+		}
+		if (i-1==n)
+		{
+			for (i; i <= m; i++)
+			{
+				A.GetElem(i, e);
+				p = (Node*)malloc(sizeof(Node));
+				p->data = e;
+				p->next = r->next;
+				r->next = p;
+				r = p;
+			}
+		}
+		else
+		{
+			for (i;i <= n; i++)
+			{
+				B.GetElem(i, h);
+				p = (Node*)malloc(sizeof(Node));
+				p->data = h;
+				p->next = r->next;
+				r->next = p;
+				r = p;
+			}
+		}
+	}
+
+	void MultiList(List A, List B) {
+		int m = A.LengthList();
+		int n = B.LengthList();
+		int e,h;
+		Node* s, * p; p = head;
+		for (int count = 0; count <=m + n - 2; count++)
+		{
+			s = (Node*)malloc(sizeof(Node));
+			s->data = 0;
+			for (int i = 0; i <= count; i++)
+			{
+				e = h = 0;
+				A.GetElem(i + 1, e);
+				B.GetElem(count - i + 1, h);
+				s->data += e * h;
+			}
+			s->next = p->next;
+			p->next = s;
+			p = s;
+		}
 	}
 };
 
