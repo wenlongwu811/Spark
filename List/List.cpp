@@ -13,6 +13,8 @@ int main()
     List list5(d, 2);
     List list6;
     list6.MultiList(list4, list5);
+
+    list6.OutFile();
     list6.DispList();
 
     /*int a[9] = { 3,25,7,5,10,4,3,2,1 };

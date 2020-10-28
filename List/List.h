@@ -431,5 +431,23 @@ public:
 			p = s;
 		}
 	}
+
+	bool OutFile() {
+		errno_t err;
+		FILE* stream;
+		Node* p; p = head;
+		err = fopen_s(&stream,"List.txt", "w+");
+		if (err!=0)
+		{
+			cout << "Fail!" << endl;
+			return 0;
+		}
+		while (p->next!=NULL)
+		{
+			fprintf(stream, "%d", p->next->data);
+			p = p->next;
+		}
+		fclose(stream);
+	}
 };
 
