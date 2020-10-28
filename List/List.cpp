@@ -13,7 +13,8 @@ int main()
     List list1(b, 6);
     List list3;
     //list3.Union(list, list1);
-    list3.Intersection(list, list1);
+    //list3.Intersection(list, list1);
+    list3.Complementary(list, list3);
     //int flag =list.EmptyList();
     //cout << flag << endl;
     //int e;

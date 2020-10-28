@@ -40,7 +40,7 @@ public:
 	List(List &L) {
 		head = (Node*)malloc(sizeof(Node));
 		head->next = NULL;
-		Node* s,*p;
+		Node* s;
 		int n = L.LengthList();
 		int e;
 		for (int i = 0; i < n; i++)
@@ -324,8 +324,41 @@ public:
 		}
 	}
 
-	/*void Complementary(List A, List B) {//²î¼¯
+	void Complementary(List A, List B) {//²î¼¯
+		int e, h;
+		int m = A.LengthList();
+		int n = B.LengthList();
+		Node* s, * p; p = head;
+		for (int i = 0; i < m; i++)
+		{	
+			A.GetElem(i + 1, e);
+			int flag = 0;
+			for (int j = 0; j < n; j++)
+			{
+				B.GetElem(j + 1, h);
+				if (e==h)
+				{
+					flag = 1;
+					break;
+				}
+			}
+			if (flag==0)
+			{
+				s = (Node*)malloc(sizeof(Node));
+				s->data = e; p = head;
+				while (p!=NULL)
+				{
+					if (p->next == NULL || p->next->data > s->data)
+					{
+						s->next = p->next;
+						p->next = s;
+						break;
+					}
+					p = p->next;
+				}
+			}
+		}
 
-	}*/
+	}
 };
 
